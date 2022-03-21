@@ -19,7 +19,7 @@ public class TimerScript : MonoBehaviour
                 timeLeft = 0f;
             }
 
-            DisplayTime(timeLeft);    
+            DisplayTime(timeLeft); 
         }
     }
 
