@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float turnSpeed = 20f;
     
+    private Rigidbody rb;
 
     Animator m_Animator;
     Rigidbody m_Rigidbody;
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start ()
     {
+        rb = GetComponent<Rigidbody>();
         m_Animator = GetComponent<Animator> ();
         m_Rigidbody = GetComponent<Rigidbody> ();
         m_AudioSource = GetComponent<AudioSource> ();
@@ -53,6 +55,14 @@ public class PlayerMovement : MonoBehaviour
     {
         m_Rigidbody.MovePosition (m_Rigidbody.position + m_Movement * m_Animator.deltaPosition.magnitude);
         m_Rigidbody.MoveRotation (m_Rotation);
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if  (other.gameObject.CompareTag("PickUp"))
+        {
+            other.gameObject.SetActive(false);
+        }
     }
 }
 
