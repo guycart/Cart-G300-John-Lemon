@@ -5,6 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float turnSpeed = 20f;
+    public float jumpSpeed;
+    public float runSpeed;
+    public float maxDistance;
+
+    bool shouldJump;
     
     private Rigidbody rb;
 
@@ -22,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
         m_AudioSource = GetComponent<AudioSource> ();
     }
    
+
     void FixedUpdate ()
     {
         float horizontal = Input.GetAxis ("Horizontal");
@@ -49,6 +55,14 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 desiredForward = Vector3.RotateTowards (transform.forward, m_Movement, turnSpeed * Time.deltaTime, 0f);
         m_Rotation = Quaternion.LookRotation (desiredForward);
+
+        rb.velocity = new Vector3(horizontal * runSpeed * Time.deltaTime, rb.velocity.y);
+
+        if(shouldJump)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + jumpSpeed);
+            shouldJump = false;
+        }
     }
 
     void OnAnimatorMove ()
@@ -64,5 +78,16 @@ public class PlayerMovement : MonoBehaviour
             other.gameObject.SetActive(false);
         }
     }
+
+   /*  void Update()
+    {
+        if(Input.GetKeyDown( KeyCode.Space ))
+        {
+            if( Physics.BoxCast( transform.position, Vector3 m_CurrentWaypointIndex, new Vector3(0,1,0), Vector3.up))
+            {
+                shouldJump = true;
+            }
+        }
+    } */
 }
 

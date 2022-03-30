@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerController : MonoBehaviour
+public class Collectable : MonoBehaviour
 {
 
-    public TextMeshProUGUI countText;
+    public TextMeshProUGUI CountText;
 
     private Rigidbody rb;
     private int count;
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     void SetCountText()
     {
-        countText.text = "Count: " + count.ToString();
+        CountText.text = "Count: " + count.ToString();
     }
 
     private void OnTriggerEnter(Collider other)
